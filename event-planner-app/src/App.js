@@ -3,11 +3,19 @@ import './App.css';
 class App extends Component {
     state = {
         titleInput: '',
+        description: ''
     };
+
     handleTitle = (event) => {
         this.setState({
             titleInput: event.target.value,
         });
+    };
+
+    handleDescription = (event) => {
+      this.setState({
+          description: event.target.value,
+      });
     };
 
     downloadTxtFile = () => {
@@ -21,7 +29,7 @@ class App extends Component {
             DTSTART: '20200227',
             DTEND: '20200228',
             SUMMARY: this.state.titleInput,
-            DESCRIPTION: 'Great event in your town',
+            DESCRIPTION: this.state.description,
             END2: 'VEVENT',
             END: 'VCALENDAR',
         }
@@ -50,16 +58,23 @@ class App extends Component {
     }
 
     render() {
-        return (
+      return (
+        <div className='post'>
+          <form onSubmit={this.downloadTxtFile}>
             <div>
-              <form onSubmit={this.downloadTxtFile}>
-                <label>Title:
-                  <input onChange={this.handleTitle} />
-                </label>
-                <input type="submit" value="Submit" />
-              </form>
+              <label>Title:
+                <input onChange={this.handleTitle} />
+              </label>
+            </div>
+            <div>
+              <label>Description:
+                <textarea onChange={this.handleDescription} />
+              </label>
+            </div>
+            <input type="submit" value="Submit" />
+          </form>
         </div>
-    );
+      );
     }
 }
 export default App;
